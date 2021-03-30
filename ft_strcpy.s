@@ -2,7 +2,7 @@ global	_ft_strcpy
 
 section	.text
 _ft_strcpy:
-	xor	rdx, rdx
+	xor     rdx, rdx
 	mov		rax, rdi
 
 copy:
