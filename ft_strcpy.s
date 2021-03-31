@@ -3,16 +3,16 @@ global	_ft_strcpy
 section	.text
 _ft_strcpy:
 	xor     rdx, rdx
-	mov		rax, rdi
+	xor		rax, rax
 
 copy:
-	mov		al, BYTE[rsi + rdx]
-	mov		BYTE[rdi + rdx], al
+	mov		al, [rsi + rdx]
+	mov		[rdi + rdx], al
 	cmp		BYTE[rsi + rdx], 0
 	jz		end
 	inc		rdx
 	jmp		copy
 
 end:
-	mov		BYTE[rdi + rdx], 0
+	mov     rax, rdi
 	ret

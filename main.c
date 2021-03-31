@@ -1,10 +1,15 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <errno.h>
+
 size_t	ft_strlen(const char *s);
 char	*ft_strcpy(char *dst, const char *src);
-int	ft_strcmp(const char *s1, const char *s2);
-ssize_t	ft_write(int fildes, const void *buf, size_t nbyte);
+int     ft_strcmp(const char *s1, const char *s2);
+ssize_t ft_write(int fildes, const void *buf, size_t nbyte);
+ssize_t ft_read(int fildes, const void *buf, size_t nbyte);
+char    *ft_strdup(const char *s1);
 
 int	main(void)
 {
@@ -27,16 +32,16 @@ int	main(void)
     i = 0;
 	while (i < 4)
 	{
-		ft_strcpy(strs1[i], strs[i]);
-		printf("MY: %s\n", strs1[i]);
+		;
+		printf("MY: %s\n", ft_strcpy(strs1[i], strs[i]));
 		i++;
 	}
 
 	i = 0;
     while (i < 4)
     {
-        strcpy(strs2[i], strs[i]);
-        printf("ORIG: %s\n", strs1[i]);
+
+        printf("ORIG: %s\n", strcpy(strs2[i], strs[i]));
         i++;
     }
 //    printf("%s\n", strcpy(strs1[0], NULL));
@@ -63,16 +68,9 @@ int	main(void)
            "text",
            ft_strcmp("string", "text"),
            strcmp("string", "text"));
-//    char *str1 = "1232";
-//    char *str2 = "1236";
-//    printf("MY: %d\n", ft_strcmp(str1, str2));
-//    printf("MY: %d\n", ft_strcmp("1232", "1236"));
-//    printf("ORIG: %d\n", strcmp(str1, str2));
-//    printf("ORIG: %d\n", strcmp("1232", "1236"));
     printf("MY: %d\n", ft_strcmp("\200", "\0"));
     printf("ORIG: %d\n", strcmp("\200", "\0"));
 
-	//ft_write
 	printf("------------FT_WRITE--------------\n");
 	i = 0;
 	while (i < 4)
@@ -81,6 +79,28 @@ int	main(void)
 		ft_write(1, "\n", 1);
 		i++;
 	}
+    write(-1, "\n", 1);
+	printf("trying to write to -1 fd: ERRNO is %d\n", errno);
+    ft_write(-1, "\n", 1);
+    printf("trying to ft_write to -1 fd: ERRNO is %d\n", errno);
+
+
+    printf("------------FT_READ--------------\n");
+    char buf[10];
+    write(1, "Orig read: Insert value: ", 25);
+    read(0, buf, 10);
+    printf("\nvalue in buf: %s\n", buf);
+
+    write(1, "ft_read: Insert value: ", 23);
+    ft_read(0, buf, 10);
+    printf("\nvalue in buf: %s\n", buf);
+
+    printf("------------FT_STRDUP--------------\n");
+    printf("MY: %s\n", ft_strdup(""));
+    printf("ORIG: %s\n\n", strdup(""));
+    printf("MY: %s\n", ft_strdup("123123"));
+    printf("ORIG: %s\n\n", strdup("123123"));
+    printf("MY: %s\n", ft_strdup("12345678901234567890"));
+    printf("ORIG: %s\n\n", strdup("12345678901234567890"));
 	return (0);
 }
-

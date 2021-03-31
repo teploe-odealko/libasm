@@ -1,4 +1,4 @@
-SRCS		=	ft_write.s ft_strcmp.s ft_strcpy.s ft_strlen.s 
+SRCS		=	ft_strdup.s ft_read.s ft_write.s ft_strcmp.s ft_strcpy.s ft_strlen.s
 OBJS		=	$(SRCS:.s=.o)
 FLAGS 		=	-Wall -Werror -Wextra
 NAME		=	libasm.a
@@ -24,4 +24,4 @@ test:			$(NAME)
 				gcc $(FLAGS) -L. -lasm -o $(TEST) main.c
 				./$(TEST)
 
-.PHONY:			clean fclean re test bonus test_bonus
+.PHONY:			clean fclean re test
